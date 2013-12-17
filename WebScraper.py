@@ -34,6 +34,7 @@ def get_info(Term, Subject):
 
 
 #TermList = open("Webscraper/term.txt").read().split("\n")
+#ProgramList = open("Webscraper\prog.txt").read().split("\n"
 t = get_info("201401", "CSCI")
 
 
