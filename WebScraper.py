@@ -17,7 +17,7 @@ def get_info(Term, Subject):
 		pattern2 = re.compile(regex2)
 		pattern3 = re.compile(regex3)
 		pattern4 = re.compile(regex4)
-		entries = re.findall(pattern, course)				#this pattern is for
+		entries = re.findall(pattern, course)				#this pattern is for default structure of courses
 		if entries:											 
 			print entries
 		else:
