@@ -1,3 +1,4 @@
+from threading import Thread
 import urllib
 import re
 
@@ -17,7 +18,7 @@ def get_info(Term, Subject):
 		pattern2 = re.compile(regex2)
 		pattern3 = re.compile(regex3)
 		pattern4 = re.compile(regex4)
-		entries = re.findall(pattern, course)				#this pattern is for default structure of courses
+		entries = re.findall(pattern3, course)				#this pattern is for courses that do not have a start time or class assigned
 		if entries:											 
 			print entries
 		else:
@@ -25,17 +26,25 @@ def get_info(Term, Subject):
 			if entries:
 				print entries
 			else:
-				entries = re.findall(pattern3, course)		#this pattern is for courses that do not have a start time or class assigned
+				entries = re.findall(pattern, course)		#this pattern is for default structure of courses
 				if entries:
 					print entries
 				else:
 					entries = re.findall(pattern4, course)	#this pattern returns two values for instructor
 					print entries
 
+threadlist = []
 
-#TermList = open("Webscraper/term.txt").read().split("\n")
-#ProgramList = open("Webscraper\prog.txt").read().split("\n"
-t = get_info("201401", "CSCI")
+TermList = open("data/term.txt").read().split("\n")
+ProgramList = open("data/prog.txt").read().split("\n")
+for Program in ProgramList:
+	for Term in TermList:
+		t = Thread(target=get_info, args=(Term, Program))
+		t.start()
+		threadlist.append(t)
+		#get_info(Term, Program)
 
+for b in threadlist:
+	b.join()
 
 
